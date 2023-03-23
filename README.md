@@ -8,7 +8,7 @@ This is user posts management microservice project. This microservice is respons
 
 ## DB Structure
 This project uses in memory H2 database with initial SQL script for schema creation.
-* [SQL Script](user-posts-management-service\src\main\resources)
+* [SQL Script](user-posts-management-service/src/main/resources/schema.sql)
 
 ## Build & Test
 ```
