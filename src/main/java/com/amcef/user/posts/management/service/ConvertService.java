@@ -1,6 +1,7 @@
 package com.amcef.user.posts.management.service;
 
 import com.amcef.user.posts.management.dto.request.CreateUserPostRequestDto;
+import com.amcef.user.posts.management.dto.request.UpdateUserPostRequestDto;
 import com.amcef.user.posts.management.dto.response.JsonPlaceHolderPostResponseDto;
 import com.amcef.user.posts.management.dto.response.UserPostResponseDto;
 import com.amcef.user.posts.management.vo.UserPostVo;
@@ -14,6 +15,14 @@ import org.springframework.stereotype.Component;
 public class ConvertService {
 
     public UserPostEntity convert(CreateUserPostRequestDto dto, Integer userId) {
+        return new UserPostEntity(
+                userId,
+                dto.title(),
+                dto.body()
+        );
+    }
+
+    public UserPostEntity convert(UpdateUserPostRequestDto dto, Integer userId) {
         return new UserPostEntity(
                 userId,
                 dto.title(),

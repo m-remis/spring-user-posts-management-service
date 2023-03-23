@@ -2,6 +2,7 @@ package com.amcef.user.posts.management.service;
 
 import com.amcef.user.posts.management.client.JsonPlaceHolderClient;
 import com.amcef.user.posts.management.dto.response.JsonPlaceHolderUserResponseDto;
+import com.amcef.user.posts.management.entity.UserPostEntity;
 import com.amcef.user.posts.management.exception.NotFoundException;
 import com.amcef.user.posts.management.vo.UserPostVo;
 import org.slf4j.Logger;
@@ -9,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -48,7 +50,23 @@ public class IntegrationService {
         });
     }
 
-    public Optional<JsonPlaceHolderUserResponseDto> findUserById(Integer userId) {
-        return Optional.ofNullable(jsonPlaceHolderClient.findUserById(clientBaseUrl, userId));
+    public List<UserPostVo> findPostByUserId(Integer userId) {
+        return userPostsService.findAllByUserId(userId).stream().map(convertService::convert).toList();
+    }
+
+    public UserPostVo uploadPost(UserPostEntity userPostEntity) {
+        checkForUserOrThrow(userPostEntity.getUserId());
+        return convertService.convert(userPostsService.save(userPostEntity));
+    }
+
+    public UserPostVo updatePost(UserPostEntity userPostEntity) {
+        checkForUserOrThrow(userPostEntity.getUserId());
+        return convertService.convert(userPostsService.update(userPostEntity));
+    }
+
+    private void checkForUserOrThrow(Integer userId) {
+        if (Optional.ofNullable(jsonPlaceHolderClient.findUserById(clientBaseUrl, userId)).isPresent()) {
+            throw NotFoundException.of(String.format("User with id: [%s] not found", userId));
+        }
     }
 }
