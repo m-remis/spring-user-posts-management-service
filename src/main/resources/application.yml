@@ -1,0 +1,15 @@
+server:
+  servlet:
+    context-path: /api/user-posts-service
+  port: 8080
+
+spring:
+  h2:
+    console:
+      enabled:true
+  datasource:
+    url: jdbc:h2:file:/data/demo
+
+application:
+  placeholder-client:
+    base-url: https://jsonplaceholder.typicode.com
