@@ -3,7 +3,6 @@ package com.amcef.user.posts.management;
 import com.amcef.user.posts.management.dto.request.CreateUserPostRequestDto;
 import com.amcef.user.posts.management.dto.request.UpdateUserPostRequestDto;
 import com.amcef.user.posts.management.entity.UserPostEntity;
-import com.amcef.user.posts.management.vo.UserPostVo;
 
 import java.util.UUID;
 
