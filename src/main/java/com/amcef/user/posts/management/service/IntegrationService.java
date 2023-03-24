@@ -62,7 +62,6 @@ public class IntegrationService {
     }
 
     public UserPostVo updatePost(UserPostVo userPostVo) {
-        checkForUserOrThrow(userPostVo.userId());
         return convertService.convert(userPostsService.update(userPostVo));
     }
 
