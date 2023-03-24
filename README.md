@@ -8,6 +8,13 @@ This microservice is responsible for:
 * serving posts
 * helping me to get a job
 
+### Make sure to have installed
+
+[JDK 17 or later](https://adoptium.net)
+
+[Maven 3.8.8 or later](https://maven.apache.org/download.cgi)
+
+
 ### DB Structure
 This project uses in memory H2 database with initial SQL script for schema creation.
 * [SQL Script](src/main/resources/schema.sql)
