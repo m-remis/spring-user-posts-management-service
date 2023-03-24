@@ -4,57 +4,20 @@ import com.amcef.user.posts.management.dto.request.CreateUserPostRequestDto;
 import com.amcef.user.posts.management.dto.request.UpdateUserPostRequestDto;
 import com.amcef.user.posts.management.dto.response.JsonPlaceHolderPostResponseDto;
 import com.amcef.user.posts.management.dto.response.UserPostResponseDto;
-import com.amcef.user.posts.management.vo.UserPostVo;
 import com.amcef.user.posts.management.entity.UserPostEntity;
-import org.springframework.stereotype.Component;
+import com.amcef.user.posts.management.vo.UserPostVo;
 
 /**
  * @author Michal Remis
  */
-@Component
-public class ConvertService {
+public interface ConvertService {
+    UserPostVo convert(CreateUserPostRequestDto dto, Integer userId);
 
-    public UserPostVo convert(CreateUserPostRequestDto dto, Integer userId) {
-        return new UserPostVo(
-                null,
-                userId,
-                dto.title(),
-                dto.body()
-        );
-    }
+    UserPostVo convert(UpdateUserPostRequestDto dto, Integer postId);
 
-    public UserPostVo convert(UpdateUserPostRequestDto dto, Integer postId) {
-        return new UserPostVo(
-                postId,
-                null,
-                dto.title(),
-                dto.body()
-        );
-    }
+    UserPostResponseDto convert(UserPostVo userPostVo);
 
-    public UserPostResponseDto convert(UserPostVo userPostVo) {
-        return new UserPostResponseDto(
-                userPostVo.id(),
-                userPostVo.title(),
-                userPostVo.body()
-        );
-    }
+    UserPostVo convert(UserPostEntity entity);
 
-    public UserPostVo convert(UserPostEntity entity) {
-        return new UserPostVo(
-                entity.getId(),
-                entity.getUserId(),
-                entity.getTitle(),
-                entity.getBody()
-        );
-    }
-
-    public UserPostVo convert(JsonPlaceHolderPostResponseDto jsonPlaceHolderPostResponseDto) {
-        return new UserPostVo(
-                jsonPlaceHolderPostResponseDto.id(),
-                jsonPlaceHolderPostResponseDto.userId(),
-                jsonPlaceHolderPostResponseDto.title(),
-                jsonPlaceHolderPostResponseDto.body()
-        );
-    }
+    UserPostVo convert(JsonPlaceHolderPostResponseDto jsonPlaceHolderPostResponseDto);
 }

@@ -284,4 +284,33 @@ class UserPostsControllerTests {
         Assertions.assertTrue(response.getPayload().isEmpty());
     }
 
+    @Test
+    void deleteUserPost() throws Exception {
+
+        final var givenPostId = 17;
+        final var createdEntity = TestDataFactory.buildUserPostEntity(givenPostId, 1);
+        TestFixtures.createUserPostEntity(userPostsRepository, createdEntity);
+
+        mockMvc.perform(MockMvcRequestBuilders
+                        .delete(UserPostsController.CONTROLLER_PREFIX)
+                        .queryParam("id", String.valueOf(givenPostId)))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isOk());
+
+        final var shouldBeDeleted = userPostsRepository.findById(givenPostId);
+
+        Assertions.assertTrue(shouldBeDeleted.isEmpty());
+    }
+
+    @Test
+    void deleteUserPost_ShouldNotFindPost() throws Exception {
+
+        final var irrelevantId = 17;
+
+        mockMvc.perform(MockMvcRequestBuilders
+                        .delete(UserPostsController.CONTROLLER_PREFIX)
+                        .queryParam("id", String.valueOf(irrelevantId)))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isNotFound());
+    }
 }

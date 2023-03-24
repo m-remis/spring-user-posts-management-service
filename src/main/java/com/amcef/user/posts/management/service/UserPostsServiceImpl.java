@@ -70,6 +70,17 @@ public class UserPostsServiceImpl implements UserPostsService {
             throw NotFoundException.of("Could not find user post");
         });
     }
+
+    @Override
+    @Transactional
+    public void deleteById(Integer id) {
+        if (findById(id).isEmpty()) {
+            LOGGER.info("Could not find post with id: [{}]", id);
+            throw NotFoundException.of(String.format("Could not find user post with id: [%s]", id));
+        }
+        LOGGER.info("Removing user post with id: [{}]", id);
+        repository.deleteById(id);
+    }
 }
 
 

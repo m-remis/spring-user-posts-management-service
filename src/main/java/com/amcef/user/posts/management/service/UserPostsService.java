@@ -18,4 +18,6 @@ public interface UserPostsService {
     List<UserPostEntity> findAllByUserId(Integer userId);
 
     UserPostEntity update(UserPostVo userPostVo);
+
+    void deleteById(Integer id);
 }
