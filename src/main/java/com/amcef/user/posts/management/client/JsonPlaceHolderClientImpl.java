@@ -31,26 +31,28 @@ public class JsonPlaceHolderClientImpl implements JsonPlaceHolderClient {
     }
 
     @Override
-    public JsonPlaceHolderUserResponseDto findUserById(String baseUrl, Integer userId) {
+    public List<JsonPlaceHolderUserResponseDto> findUserById(String baseUrl, Integer userId) {
         try {
             return restTemplate.exchange(
                     UriComponentsBuilder.fromUriString(baseUrl.concat(GET_USERS)).queryParam(DEFAULT_ID, userId).build().toUri(),
                     HttpMethod.GET,
                     null,
-                    JsonPlaceHolderUserResponseDto.class).getBody();
+                    new ParameterizedTypeReference<List<JsonPlaceHolderUserResponseDto>>() {
+                    }).getBody();
         } catch (HttpClientErrorException exception) {
             throw ClientIntegrationException.of("Could not retrieve user data");
         }
     }
 
     @Override
-    public JsonPlaceHolderPostResponseDto findPostById(String baseUrl, Integer postId) {
+    public List<JsonPlaceHolderPostResponseDto> findPostById(String baseUrl, Integer postId) {
         try {
             return restTemplate.exchange(
                     UriComponentsBuilder.fromUriString(baseUrl.concat(GET_POSTS)).queryParam(DEFAULT_ID, postId).build().toUri(),
                     HttpMethod.GET,
                     null,
-                    JsonPlaceHolderPostResponseDto.class).getBody();
+                    new ParameterizedTypeReference<List<JsonPlaceHolderPostResponseDto>>() {
+                    }).getBody();
         } catch (HttpClientErrorException exception) {
             throw ClientIntegrationException.of("Could not retrieve user post data");
         }

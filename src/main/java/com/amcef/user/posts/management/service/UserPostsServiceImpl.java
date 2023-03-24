@@ -3,6 +3,7 @@ package com.amcef.user.posts.management.service;
 import com.amcef.user.posts.management.entity.UserPostEntity;
 import com.amcef.user.posts.management.exception.NotFoundException;
 import com.amcef.user.posts.management.repository.UserPostsRepository;
+import com.amcef.user.posts.management.vo.UserPostVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -32,10 +33,16 @@ public class UserPostsServiceImpl implements UserPostsService {
      */
     @Override
     @Transactional
-    public UserPostEntity save(UserPostEntity entity) {
-        LOGGER.info("Saving post for user with id: [{}]", entity.getUserId());
-        entity.setId(repository.getNextAvailableId());
-        return repository.save(entity);
+    public UserPostEntity save(UserPostVo userPostVo) {
+        LOGGER.info("Saving post for user with id: [{}]", userPostVo.userId());
+        return repository.save(
+                new UserPostEntity(
+                        repository.getNextAvailableId(),
+                        userPostVo.userId(),
+                        userPostVo.title(),
+                        userPostVo.body()
+                )
+        );
     }
 
     @Override
@@ -52,14 +59,14 @@ public class UserPostsServiceImpl implements UserPostsService {
 
     @Override
     @Transactional
-    public UserPostEntity update(UserPostEntity entity) {
-        return repository.findById(entity.getId()).map(found -> {
-            LOGGER.info("Updating post with id: [{}]", entity.getId());
-            Optional.ofNullable(entity.getBody()).ifPresent(found::setBody);
-            Optional.ofNullable(entity.getTitle()).ifPresent(found::setTitle);
+    public UserPostEntity update(UserPostVo userPostVo) {
+        return repository.findById(userPostVo.id()).map(found -> {
+            LOGGER.info("Updating post with id: [{}]", found.getId());
+            Optional.ofNullable(userPostVo.body()).ifPresent(found::setBody);
+            Optional.ofNullable(userPostVo.title()).ifPresent(found::setTitle);
             return found;
         }).orElseThrow(() -> {
-            LOGGER.info("Could not find post with id: [{}]", entity.getId());
+            LOGGER.info("Could not find post with id: [{}]", userPostVo.id());
             throw NotFoundException.of("Could not find user post");
         });
     }

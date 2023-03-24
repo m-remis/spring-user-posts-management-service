@@ -18,14 +18,14 @@ public interface UserPostsRepository extends JpaRepository<UserPostEntity, Integ
     @Query("""
             select upe
             from UserPostEntity upe
-            where upe.id =: id
+            where upe.id = :id
             """)
     Optional<UserPostEntity> findById(@Param("id") Integer id);
 
     @Query("""
             select upe
             from UserPostEntity upe
-            where upe.userId =: userId
+            where upe.userId = :userId
             """)
     List<UserPostEntity> findAllByUserId(@Param("userId") Integer userId);
 

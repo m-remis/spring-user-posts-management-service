@@ -1,6 +1,7 @@
 package com.amcef.user.posts.management.dto.request;
 
-import javax.validation.constraints.NotEmpty;
+
+import jakarta.validation.constraints.NotEmpty;
 
 /**
  * @author Michal Remis

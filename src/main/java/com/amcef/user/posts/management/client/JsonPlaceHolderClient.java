@@ -10,9 +10,9 @@ import java.util.List;
  */
 public interface JsonPlaceHolderClient {
 
-    JsonPlaceHolderUserResponseDto findUserById(String baseUrl, Integer userId);
+    List<JsonPlaceHolderUserResponseDto> findUserById(String baseUrl, Integer userId);
 
-    JsonPlaceHolderPostResponseDto findPostById(String baseUrl, Integer postId);
+    List<JsonPlaceHolderPostResponseDto> findPostById(String baseUrl, Integer postId);
 
     List<JsonPlaceHolderPostResponseDto> findPostsByUserId(String baseUrl, Integer postId);
 }

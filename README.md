@@ -1,4 +1,5 @@
 [![CircleCI](https://dl.circleci.com/status-badge/img/gh/m-remis/user-posts-management-service/tree/main.svg?style=svg&circle-token=be10159a23b14433d8f05f28bd11d770041576dd)](https://dl.circleci.com/status-badge/redirect/gh/m-remis/user-posts-management-service/tree/main)
+
 # User Posts Management Service
 
 This is user posts management microservice project. This microservice is responsible for:
@@ -19,3 +20,26 @@ How to start:
 ```
 java -jar user-posts-management-service\target\user-posts-management-service-0.0.1-SNAPSHOT.jar
 ```
+
+Swagger UI: 
+
+This project uses OpenAPI 3.0.3 for documentation
+
+Swagger UI can be found under:
+
+```
+{server-url}/api/user-posts-service/swagger-ui/index.html
+```
+For local testing, click here after running the application:
+* [Swagger UI](http://localhost:8080/api/user-posts-service/swagger-ui/index.html)
+
+![swagger](docs/img.png)
+
+YAML API Specification
+
+specification can be downloaded under: 
+```
+{server-url}/api/user-posts-service/v3/api-docs.yaml
+```
+For local testing, click here after running the application:
+* [YAML File](http://localhost:8080/api/user-posts-service/v3/api-docs.yaml)

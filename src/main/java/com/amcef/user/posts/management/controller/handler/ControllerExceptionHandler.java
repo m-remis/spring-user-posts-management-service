@@ -1,5 +1,6 @@
 package com.amcef.user.posts.management.controller.handler;
 
+import com.amcef.user.posts.management.exception.MultipleResourcesFoundException;
 import com.amcef.user.posts.management.exception.NotFoundException;
 import com.amcef.user.posts.management.dto.response.ErrorDto;
 import com.amcef.user.posts.management.dto.response.ServerResponse;
@@ -36,6 +37,14 @@ public class ControllerExceptionHandler {
     @ResponseBody
     public ServerResponse<Void> handleException(NotFoundException exception) {
         LOGGER.error("Client integration exception occurred: ", exception);
+        return ServerResponse.error(exception.getError());
+    }
+
+    @ExceptionHandler({MultipleResourcesFoundException.class})
+    @ResponseStatus(HttpStatus.MULTI_STATUS)
+    @ResponseBody
+    public ServerResponse<Void> handleException(MultipleResourcesFoundException exception) {
+        LOGGER.error("Multiple resources exception occurred: ", exception);
         return ServerResponse.error(exception.getError());
     }
 

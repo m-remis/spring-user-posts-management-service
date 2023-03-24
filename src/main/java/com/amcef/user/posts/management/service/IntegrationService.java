@@ -1,8 +1,7 @@
 package com.amcef.user.posts.management.service;
 
 import com.amcef.user.posts.management.client.JsonPlaceHolderClient;
-import com.amcef.user.posts.management.dto.response.JsonPlaceHolderUserResponseDto;
-import com.amcef.user.posts.management.entity.UserPostEntity;
+import com.amcef.user.posts.management.exception.MultipleResourcesFoundException;
 import com.amcef.user.posts.management.exception.NotFoundException;
 import com.amcef.user.posts.management.vo.UserPostVo;
 import org.slf4j.Logger;
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @author Michal Remis
@@ -19,14 +17,11 @@ import java.util.Optional;
 @Service
 public class IntegrationService {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(IntegrationService.class);
     private final JsonPlaceHolderClient jsonPlaceHolderClient;
     private final UserPostsService userPostsService;
-
     private final ConvertService convertService;
-
     private final String clientBaseUrl;
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(IntegrationService.class);
 
     public IntegrationService(final JsonPlaceHolderClient jsonPlaceHolderClient,
                               final UserPostsService userPostsService,
@@ -43,10 +38,17 @@ public class IntegrationService {
         return userPostsService.findById(postId).map(convertService::convert).orElseGet(() -> {
             // try to look into external system
             LOGGER.info("Could not find post in internal system, searching in external...");
-            return Optional.ofNullable(jsonPlaceHolderClient.findPostById(clientBaseUrl, postId))
-                    .map(convertService::convert)
-                    // if not found anywhere, throw error
-                    .orElseThrow(() -> NotFoundException.of("Could not find user post"));
+            final var responseExternal = jsonPlaceHolderClient.findPostById(clientBaseUrl, postId);
+            // if nothing is found in external system
+            if (responseExternal.isEmpty()) {
+                throw NotFoundException.of(String.format("Post with id: [%s] not found", postId));
+            }
+            // if multiple elements returned for same id
+            // this should not happen but cover it anyway
+            if (responseExternal.size() > 1) {
+                throw MultipleResourcesFoundException.of(String.format("Multiple resources for id: [%s] found", postId));
+            }
+            return convertService.convert(responseExternal.stream().findAny().get());
         });
     }
 
@@ -54,18 +56,26 @@ public class IntegrationService {
         return userPostsService.findAllByUserId(userId).stream().map(convertService::convert).toList();
     }
 
-    public UserPostVo uploadPost(UserPostEntity userPostEntity) {
-        checkForUserOrThrow(userPostEntity.getUserId());
-        return convertService.convert(userPostsService.save(userPostEntity));
+    public UserPostVo createPost(UserPostVo userPostVo) {
+        checkForUserOrThrow(userPostVo.userId());
+        return convertService.convert(userPostsService.save(userPostVo));
     }
 
-    public UserPostVo updatePost(UserPostEntity userPostEntity) {
-        checkForUserOrThrow(userPostEntity.getUserId());
-        return convertService.convert(userPostsService.update(userPostEntity));
+    public UserPostVo updatePost(UserPostVo userPostVo) {
+        checkForUserOrThrow(userPostVo.userId());
+        return convertService.convert(userPostsService.update(userPostVo));
     }
 
     private void checkForUserOrThrow(Integer userId) {
-        if (Optional.ofNullable(jsonPlaceHolderClient.findUserById(clientBaseUrl, userId)).isPresent()) {
+        final var response = jsonPlaceHolderClient.findUserById(clientBaseUrl, userId);
+
+        // this should not happen but cover it anyway
+        if (response.size() > 1) {
+            throw MultipleResourcesFoundException.of(String.format("Multiple users for id: [%s] found", userId));
+        }
+
+        // if nothing is found in external system
+        if (response.isEmpty()) {
             throw NotFoundException.of(String.format("User with id: [%s] not found", userId));
         }
     }

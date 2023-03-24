@@ -14,19 +14,29 @@ import org.springframework.stereotype.Component;
 @Component
 public class ConvertService {
 
-    public UserPostEntity convert(CreateUserPostRequestDto dto, Integer userId) {
-        return new UserPostEntity(
+    public UserPostVo convert(CreateUserPostRequestDto dto, Integer userId) {
+        return new UserPostVo(
+                null,
                 userId,
                 dto.title(),
                 dto.body()
         );
     }
 
-    public UserPostEntity convert(UpdateUserPostRequestDto dto, Integer userId) {
-        return new UserPostEntity(
-                userId,
+    public UserPostVo convert(UpdateUserPostRequestDto dto, Integer postId) {
+        return new UserPostVo(
+                postId,
+                null,
                 dto.title(),
                 dto.body()
+        );
+    }
+
+    public UserPostResponseDto convert(UserPostVo userPostVo) {
+        return new UserPostResponseDto(
+                userPostVo.id(),
+                userPostVo.title(),
+                userPostVo.body()
         );
     }
 
@@ -46,9 +56,5 @@ public class ConvertService {
                 jsonPlaceHolderPostResponseDto.title(),
                 jsonPlaceHolderPostResponseDto.body()
         );
-    }
-
-    public UserPostResponseDto convert(UserPostVo userPostVo) {
-        return new UserPostResponseDto(userPostVo.id(), userPostVo.title(), userPostVo.body());
     }
 }

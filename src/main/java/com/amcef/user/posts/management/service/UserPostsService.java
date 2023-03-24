@@ -1,6 +1,7 @@
 package com.amcef.user.posts.management.service;
 
 import com.amcef.user.posts.management.entity.UserPostEntity;
+import com.amcef.user.posts.management.vo.UserPostVo;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,11 +11,11 @@ import java.util.Optional;
  */
 public interface UserPostsService {
 
-    UserPostEntity save(UserPostEntity entity);
+    UserPostEntity save(UserPostVo userPostVo);
 
     Optional<UserPostEntity> findById(Integer id);
 
     List<UserPostEntity> findAllByUserId(Integer userId);
 
-    UserPostEntity update(UserPostEntity entity);
+    UserPostEntity update(UserPostVo userPostVo);
 }
