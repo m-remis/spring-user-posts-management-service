@@ -8,18 +8,27 @@ This microservice is responsible for:
 * serving posts
 * helping me to get a job
 
+This project uses: 
+
+* Java 17 
+* Maven 
+* Spring Boot 3.0.5 framework
+* In memory H2 database
+* Embedded Apache Tomcat is replaced by JBoss Undertow (no real reason to be honest)
+* SpringDoc OpenAPI UI
+* Hibernate
+
 ### Make sure to have installed
 
 [JDK 17 or later](https://adoptium.net)
 
 [Maven 3.8.8 or later](https://maven.apache.org/download.cgi)
 
-
 ### DB Structure
 This project uses in memory H2 database with initial SQL script for schema creation.
 * [SQL Script](src/main/resources/schema.sql)
 
-### Build & Test
+### Build & Test:
 ```
 mvn clean install
 ```
@@ -42,7 +51,7 @@ Swagger UI can be found under:
 
 ![swagger](docs/img.png)
 
-### YAML API Specification
+### YAML API Specification:
 
 specification can be downloaded under: 
 ```
