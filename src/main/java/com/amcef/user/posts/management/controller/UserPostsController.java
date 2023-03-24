@@ -16,7 +16,6 @@ import java.util.List;
  * @author Michal Remis
  */
 @RestController
-@Validated
 public class UserPostsController {
 
     public static final String CONTROLLER_PREFIX = "/user-posts";
@@ -32,7 +31,7 @@ public class UserPostsController {
     }
 
     @PostMapping(CONTROLLER_PREFIX)
-    ServerResponse<UserPostResponseDto> createUserPost(@RequestParam(value = "userId") Integer userId, @RequestBody CreateUserPostRequestDto createUserPostRequestDto) {
+    ServerResponse<UserPostResponseDto> createUserPost(@RequestParam(value = "userId") Integer userId, @RequestBody @Validated CreateUserPostRequestDto createUserPostRequestDto) {
         return new ServerResponse<>(convertService.convert(integrationService.createPost(convertService.convert(createUserPostRequestDto, userId))));
     }
 
@@ -47,7 +46,7 @@ public class UserPostsController {
     }
 
     @PatchMapping(CONTROLLER_PREFIX)
-    ServerResponse<UserPostResponseDto> updateUserPost(@RequestParam(value = "id") Integer id, @RequestBody UpdateUserPostRequestDto updateUserPostRequestDto) {
+    ServerResponse<UserPostResponseDto> updateUserPost(@RequestParam(value = "id") Integer id, @RequestBody @Validated UpdateUserPostRequestDto updateUserPostRequestDto) {
         return new ServerResponse<>(convertService.convert(integrationService.updatePost(convertService.convert(updateUserPostRequestDto, id))));
     }
 }

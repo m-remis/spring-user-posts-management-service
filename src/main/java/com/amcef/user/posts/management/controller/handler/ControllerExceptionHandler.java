@@ -61,7 +61,7 @@ public class ControllerExceptionHandler {
     @ResponseBody
     public ServerResponse<Void> onValidationError(Exception ex) {
         LOGGER.error("Validation exception occurred");
-        return ServerResponse.error(new ErrorDto("BAD_REQUEST"));
+        return ServerResponse.error(new ErrorDto("Incorrect input"));
     }
 
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
