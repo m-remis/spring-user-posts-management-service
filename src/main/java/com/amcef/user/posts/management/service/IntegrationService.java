@@ -48,7 +48,9 @@ public class IntegrationService {
             if (responseExternal.size() > 1) {
                 throw MultipleResourcesFoundException.of(String.format("Multiple resources for id: [%s] found", postId));
             }
-            return convertService.convert(responseExternal.stream().findAny().get());
+
+            LOGGER.info("User post found in external service, saving to system...");
+            return convertService.convert(userPostsService.save(convertService.convert(responseExternal.stream().findAny().get())));
         });
     }
 

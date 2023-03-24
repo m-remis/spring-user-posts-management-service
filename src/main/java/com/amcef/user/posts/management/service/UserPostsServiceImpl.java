@@ -37,7 +37,7 @@ public class UserPostsServiceImpl implements UserPostsService {
         LOGGER.info("Saving post for user with id: [{}]", userPostVo.userId());
         return repository.save(
                 new UserPostEntity(
-                        repository.getNextAvailableId(),
+                        Optional.ofNullable(userPostVo.id()).orElse(repository.getNextAvailableId()),
                         userPostVo.userId(),
                         userPostVo.title(),
                         userPostVo.body()
