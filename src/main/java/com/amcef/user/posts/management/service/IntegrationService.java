@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.function.Function;
 
 /**
  * @author Michal Remis
@@ -39,18 +40,15 @@ public class IntegrationService {
             // try to look into external system
             LOGGER.info("Could not find post in internal system, searching in external...");
             final var responseExternal = jsonPlaceHolderClient.findPostById(clientBaseUrl, postId);
-            // if nothing is found in external system
-            if (responseExternal.isEmpty()) {
-                throw NotFoundException.of(String.format("Post with id: [%s] not found", postId));
-            }
-            // if multiple elements returned for same id
+
             // this should not happen but cover it anyway
             if (responseExternal.size() > 1) {
                 throw MultipleResourcesFoundException.of(String.format("Multiple resources for id: [%s] found", postId));
             }
 
             LOGGER.info("User post found in external service, saving to system...");
-            return convertService.convert(userPostsService.save(convertService.convert(responseExternal.stream().findAny().get())));
+            return convertService.convert(userPostsService.save(convertService.convert(responseExternal.stream().findAny()
+                    .orElseThrow(() -> NotFoundException.of(String.format("Post with id: [%s] not found", postId))))));
         });
     }
 
