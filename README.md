@@ -6,6 +6,7 @@ This is user posts management microservice project.
 This microservice is responsible for:
 * creating posts
 * serving posts
+* deleting posts
 * helping me to get a job
 
 This project uses: 
