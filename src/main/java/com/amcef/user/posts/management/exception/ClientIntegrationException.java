@@ -14,11 +14,6 @@ public class ClientIntegrationException extends RuntimeException {
         this.error = error;
     }
 
-    public ClientIntegrationException(Throwable cause, ErrorDto error) {
-        super(cause);
-        this.error = error;
-    }
-
     public ErrorDto getError() {
         return error;
     }
