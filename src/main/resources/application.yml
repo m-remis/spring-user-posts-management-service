@@ -15,12 +15,11 @@ spring:
 
 application:
   name: User posts management service
-  desc: Demo app for showing mad googling and stealing from stack overflow skills
+  desc: Demo app for basic spring boot application
   placeholder-client:
     base-url: https://jsonplaceholder.typicode.com
 
 developer:
   info:
     name: Michal Remis
-    mail: mich4l.remis@gmail.com
     linked-in: https://www.linkedin.com/in/michal-remi%C5%A1-1b4785178/
