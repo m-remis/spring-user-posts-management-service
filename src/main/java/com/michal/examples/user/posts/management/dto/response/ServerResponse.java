@@ -17,7 +17,8 @@ public class ServerResponse<T> {
     }
 
     @JsonCreator
-    public ServerResponse(@JsonProperty("payload") T payload, @JsonProperty("error") ErrorDto error) {
+    public ServerResponse(@JsonProperty("payload") T payload,
+                          @JsonProperty("error") ErrorDto error) {
         this.payload = payload;
         this.error = error;
     }

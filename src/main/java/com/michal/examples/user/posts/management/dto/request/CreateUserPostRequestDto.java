@@ -1,11 +1,11 @@
 package com.michal.examples.user.posts.management.dto.request;
 
 
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotBlank;
 
 /**
  * @author Michal Remis
  */
-public record CreateUserPostRequestDto(@NotEmpty String title,
-                                       @NotEmpty String body) {
+public record CreateUserPostRequestDto(@NotBlank String title,
+                                       @NotBlank String body) {
 }

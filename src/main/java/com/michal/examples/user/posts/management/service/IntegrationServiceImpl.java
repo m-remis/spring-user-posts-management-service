@@ -18,9 +18,12 @@ import java.util.List;
 public class IntegrationServiceImpl implements IntegrationService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(IntegrationServiceImpl.class);
+
     private final JsonPlaceHolderClient jsonPlaceHolderClient;
+
     private final UserPostsService userPostsService;
     private final ConvertService convertService;
+
     private final String clientBaseUrl;
 
     public IntegrationServiceImpl(final JsonPlaceHolderClient jsonPlaceHolderClient,

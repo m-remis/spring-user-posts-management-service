@@ -30,12 +30,6 @@ public class UserPostEntity {
         // jpa requirement
     }
 
-    public UserPostEntity(Integer userId, String title, String body) {
-        this.userId = userId;
-        this.title = title;
-        this.body = body;
-    }
-
     public UserPostEntity(Integer id, Integer userId, String title, String body) {
         this.id = id;
         this.userId = userId;

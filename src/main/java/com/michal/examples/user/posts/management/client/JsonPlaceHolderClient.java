@@ -14,5 +14,4 @@ public interface JsonPlaceHolderClient {
 
     List<JsonPlaceHolderPostResponseDto> findPostById(String baseUrl, Integer postId);
 
-    List<JsonPlaceHolderPostResponseDto> findPostsByUserId(String baseUrl, Integer postId);
 }

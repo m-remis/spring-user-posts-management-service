@@ -2,24 +2,35 @@
 
 ## User Posts Management Service
 
-This is user posts management microservice project.  
-A Java service that provides a REST API for managing user posts. 
-The format of the post is as follows:
-- id: integer
-- userId: integer
-- title: string
-- body: string
-- 
+#### Simple Spring Boot demo application that provides REST APIs for managing user posts.
+
+All functional requirements are covered by unit tests.
+
 Functional requirements:
-- Post addition - need to validate userID using external API
+
+- Add post - need to validate userID using external API
 - Post view
     - based on id or userId
     - if the post is not found in the system, it needs to be searched using an external API and saved (valid only for
       searching using the post id)
 - Post removal
 - Editing the post - the ability to change the title and body
-- 
-External API can be found under:  https://jsonplaceholder.typicode.com/
+
+
+External API can be found here:  https://jsonplaceholder.typicode.com/
+
+Apis used:
+
+https://jsonplaceholder.typicode.com/posts
+
+https://jsonplaceholder.typicode.com/users
+
+The format of the post is as follows:
+
+- id: integer
+- userId: integer
+- title: string
+- body: string
 
 This project uses:
 
@@ -33,15 +44,18 @@ This project uses:
 
 ### Make sure to have installed
 
+[Git](https://git-scm.com/downloads)
+
 [JDK 17 or later](https://adoptium.net)
 
 [Maven 3.8.8 or later](https://maven.apache.org/download.cgi)
 
 ### DB Structure
 
-This project uses in memory H2 database with initial SQL script for schema creation.
+This project uses simple in memory H2 database with initial SQL script for schema creation, 
+data is removed from DB on each application startup for simplicity.
 
-* [SQL Script](src/main/resources/schema.sql)
+[SQL Script](src/main/resources/schema.sql)
 
 ### Build & Test:
 

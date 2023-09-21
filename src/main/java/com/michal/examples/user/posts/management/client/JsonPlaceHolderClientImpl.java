@@ -21,8 +21,7 @@ public class JsonPlaceHolderClientImpl implements JsonPlaceHolderClient {
     private static final String GET_POSTS = "/posts";
     private static final String GET_USERS = "/users";
 
-    private static final String USER_ID = "userId";
-    private static final String DEFAULT_ID = "id";
+    private static final String ID_PARAM = "id";
 
     private final RestTemplate restTemplate;
 
@@ -34,7 +33,7 @@ public class JsonPlaceHolderClientImpl implements JsonPlaceHolderClient {
     public List<JsonPlaceHolderUserResponseDto> findUserById(String baseUrl, Integer userId) {
         try {
             return restTemplate.exchange(
-                    UriComponentsBuilder.fromUriString(baseUrl.concat(GET_USERS)).queryParam(DEFAULT_ID, userId).build().toUri(),
+                    UriComponentsBuilder.fromUriString(baseUrl.concat(GET_USERS)).queryParam(ID_PARAM, userId).build().toUri(),
                     HttpMethod.GET,
                     null,
                     new ParameterizedTypeReference<List<JsonPlaceHolderUserResponseDto>>() {
@@ -48,21 +47,7 @@ public class JsonPlaceHolderClientImpl implements JsonPlaceHolderClient {
     public List<JsonPlaceHolderPostResponseDto> findPostById(String baseUrl, Integer postId) {
         try {
             return restTemplate.exchange(
-                    UriComponentsBuilder.fromUriString(baseUrl.concat(GET_POSTS)).queryParam(DEFAULT_ID, postId).build().toUri(),
-                    HttpMethod.GET,
-                    null,
-                    new ParameterizedTypeReference<List<JsonPlaceHolderPostResponseDto>>() {
-                    }).getBody();
-        } catch (HttpClientErrorException exception) {
-            throw ClientIntegrationException.of("Could not retrieve user post data");
-        }
-    }
-
-    @Override
-    public List<JsonPlaceHolderPostResponseDto> findPostsByUserId(String baseUrl, Integer postId) {
-        try {
-            return restTemplate.exchange(
-                    UriComponentsBuilder.fromUriString(baseUrl.concat(GET_POSTS)).queryParam(USER_ID, postId).build().toUri(),
+                    UriComponentsBuilder.fromUriString(baseUrl.concat(GET_POSTS)).queryParam(ID_PARAM, postId).build().toUri(),
                     HttpMethod.GET,
                     null,
                     new ParameterizedTypeReference<List<JsonPlaceHolderPostResponseDto>>() {
