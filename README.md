@@ -8,16 +8,20 @@ All functional requirements are covered by unit tests.
 
 Functional requirements:
 
-- Add post - need to validate userID using external API
+- Add post 
+    - need to validate userId using external API
 - Post view
     - based on id or userId
     - if the post is not found in the system, it needs to be searched using an external API and saved (valid only for
       searching using the post id)
 - Post removal
-- Editing the post - the ability to change the title and body
+- Editing the post 
+  - ability to change the title and body
 
 
-External API can be found here:  https://jsonplaceholder.typicode.com/
+External API can be found here: 
+
+https://jsonplaceholder.typicode.com/
 
 Apis used:
 
@@ -55,7 +59,7 @@ This project uses:
 This project uses simple in memory H2 database with initial SQL script for schema creation, 
 data is removed from DB on each application startup for simplicity.
 
-[SQL Script](src/main/resources/schema.sql)
+[SQL Script used for table cration](src/main/resources/schema.sql)
 
 ### Build & Test:
 
@@ -92,3 +96,7 @@ specification can be downloaded under:
 ```
 
 #### For local testing, click [here](http://localhost:8080/api/user-posts-service/v3/api-docs.yaml) after running the application to download the file
+
+### Simplified visual representation
+
+![diagram](docs/diagram.svg)
