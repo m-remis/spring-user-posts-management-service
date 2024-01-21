@@ -1,4 +1,10 @@
 [![CircleCI](https://dl.circleci.com/status-badge/img/gh/m-remis/user-posts-management-service/tree/main.svg?style=svg&circle-token=be10159a23b14433d8f05f28bd11d770041576dd)](https://dl.circleci.com/status-badge/redirect/gh/m-remis/user-posts-management-service/tree/main)
+![Java](https://img.shields.io/badge/Java-17-orange)
+![Maven](https://img.shields.io/badge/Maven%20-8A2BE2)
+![Spring](https://img.shields.io/badge/Spring_Boot%20-green)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL%20-blue)
+![Docker](https://img.shields.io/badge/Docker%20-aqua)
+![Flyway](https://img.shields.io/badge/Flyway%20-red)
 
 ## User Posts Management Service
 
