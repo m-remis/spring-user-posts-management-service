@@ -8,17 +8,29 @@ All functional requirements are covered by unit tests.
 
 ### Functional requirements:
 
-#### Add post 
-  - need to validate userId using external API
-
-#### Post view (based on id or userId)
-  - if the post is not found in the system, it needs to be searched using an external API and saved (valid only for
-    searching using the post id)
-
-#### Post removal
-
-#### Editing the post
- - ability to change the title and body
+<table>
+    <tr>
+        <th>Feature</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td>add post</td>
+        <td> - needs to validate userId using an external API before saving</td>
+    </tr>
+    <tr>
+        <td>search post</td>
+        <td> - based on post id or userId 
+        <br> - if the post is not found in the system, it needs to be searched using an external API and saved (valid only for searching using the post id)</td>
+    </tr>
+    <tr>
+        <td>remove post</td>
+        <td> - remove a post from the system</td>
+    </tr>
+    <tr>
+        <td>edit post</td>
+        <td> - ability to change the title and body of a post</td>
+    </tr>
+</table>
 
 ### External API can be found here
 
@@ -26,11 +38,11 @@ All functional requirements are covered by unit tests.
 
 #### Apis used:
 
-[Json Placeholder posts API](https://jsonplaceholder.typicode.com/posts)
+[Posts API](https://jsonplaceholder.typicode.com/posts)
 
-[Json Placeholder users API](https://jsonplaceholder.typicode.com/users)
+[Users API](https://jsonplaceholder.typicode.com/users)
 
-### The format of the post is as follows:
+### Post format
 
 <table>
   <tr>
