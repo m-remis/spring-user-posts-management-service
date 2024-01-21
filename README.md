@@ -6,13 +6,13 @@
 ![Docker](https://img.shields.io/badge/Docker%20-aqua)
 ![Flyway](https://img.shields.io/badge/Flyway%20-red)
 
-## User Posts Management Service
+### User Posts Management Service
 
-#### Simple Spring Boot demo application that provides REST APIs for managing user posts.
+#### Simple example application
 
 All functional requirements are covered by unit tests.
 
-### Functional requirements:
+### API functional requirements
 
 <table>
     <tr>
@@ -38,9 +38,9 @@ All functional requirements are covered by unit tests.
     </tr>
 </table>
 
-### External API can be found here
+#### External API used for integration can be found here
 
-[Json Placeholder](https://jsonplaceholder.typicode.com/)
+[Json Placeholder APIs](https://jsonplaceholder.typicode.com/)
 
 #### Apis used:
 
@@ -48,7 +48,7 @@ All functional requirements are covered by unit tests.
 
 [Users API](https://jsonplaceholder.typicode.com/users)
 
-### Post format
+### Format of the post
 
 <table>
   <tr>
@@ -108,6 +108,9 @@ All functional requirements are covered by unit tests.
   </tr>
   <tr>
     <td>Hibernate</td>
+  </tr>
+    <tr>
+    <td>CircleCI</td>
   </tr>
 </table>
 
