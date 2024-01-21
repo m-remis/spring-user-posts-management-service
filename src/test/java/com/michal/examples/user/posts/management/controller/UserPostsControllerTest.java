@@ -1,12 +1,12 @@
 package com.michal.examples.user.posts.management.controller;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.michal.examples.user.posts.management.TestDataFactory;
 import com.michal.examples.user.posts.management.TestFixtures;
 import com.michal.examples.user.posts.management.dto.response.ServerResponse;
 import com.michal.examples.user.posts.management.dto.response.UserPostResponseDto;
 import com.michal.examples.user.posts.management.repository.UserPostsRepository;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
@@ -28,14 +29,15 @@ import java.util.List;
 @SpringBootTest
 @AutoConfigureMockMvc
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class UserPostsControllerTests {
+@ActiveProfiles(value = "test")
+class UserPostsControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
     @Autowired
-    ObjectMapper objectMapper;
+    private ObjectMapper objectMapper;
     @Autowired
-    UserPostsRepository userPostsRepository;
+    private UserPostsRepository userPostsRepository;
 
     @AfterEach
     void cleanUp() {
@@ -57,7 +59,7 @@ class UserPostsControllerTests {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn().getResponse().getContentAsString();
 
-        ServerResponse<UserPostResponseDto> response = objectMapper.readValue(contentAsString, new TypeReference<ServerResponse<UserPostResponseDto>>() {
+        ServerResponse<UserPostResponseDto> response = objectMapper.readValue(contentAsString, new TypeReference<>() {
         });
 
         Assertions.assertNotNull(response.getPayload());
@@ -178,7 +180,7 @@ class UserPostsControllerTests {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn().getResponse().getContentAsString();
 
-        ServerResponse<UserPostResponseDto> response = objectMapper.readValue(contentAsString, new TypeReference<ServerResponse<UserPostResponseDto>>() {
+        ServerResponse<UserPostResponseDto> response = objectMapper.readValue(contentAsString, new TypeReference<>() {
         });
 
         Assertions.assertNotNull(response.getPayload());
@@ -204,7 +206,7 @@ class UserPostsControllerTests {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn().getResponse().getContentAsString();
 
-        ServerResponse<UserPostResponseDto> response = objectMapper.readValue(contentAsString, new TypeReference<ServerResponse<UserPostResponseDto>>() {
+        ServerResponse<UserPostResponseDto> response = objectMapper.readValue(contentAsString, new TypeReference<>() {
         });
 
         final var shouldBeUpdated = userPostsRepository.findById(givenPostId);
@@ -228,7 +230,7 @@ class UserPostsControllerTests {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn().getResponse().getContentAsString();
 
-        ServerResponse<UserPostResponseDto> response = objectMapper.readValue(contentAsString, new TypeReference<ServerResponse<UserPostResponseDto>>() {
+        ServerResponse<UserPostResponseDto> response = objectMapper.readValue(contentAsString, new TypeReference<>() {
         });
 
         final var shouldBeSaved = userPostsRepository.findById(givenPostId);
@@ -256,7 +258,7 @@ class UserPostsControllerTests {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn().getResponse().getContentAsString();
 
-        ServerResponse<List<UserPostResponseDto>> response = objectMapper.readValue(contentAsString, new TypeReference<ServerResponse<List<UserPostResponseDto>>>() {
+        ServerResponse<List<UserPostResponseDto>> response = objectMapper.readValue(contentAsString, new TypeReference<>() {
         });
 
         Assertions.assertNotNull(response.getPayload());
@@ -278,7 +280,7 @@ class UserPostsControllerTests {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn().getResponse().getContentAsString();
 
-        ServerResponse<List<UserPostResponseDto>> response = objectMapper.readValue(contentAsString, new TypeReference<ServerResponse<List<UserPostResponseDto>>>() {
+        ServerResponse<List<UserPostResponseDto>> response = objectMapper.readValue(contentAsString, new TypeReference<>() {
         });
 
         Assertions.assertTrue(response.getPayload().isEmpty());

@@ -21,13 +21,13 @@ Functional requirements:
 
 External API can be found here: 
 
-https://jsonplaceholder.typicode.com/
+[Json Placeholder](https://jsonplaceholder.typicode.com/)
 
 Apis used:
 
-https://jsonplaceholder.typicode.com/posts
+[Json Placeholder posts API](https://jsonplaceholder.typicode.com/posts)
 
-https://jsonplaceholder.typicode.com/users
+[Json Placeholder users API](https://jsonplaceholder.typicode.com/users)
 
 The format of the post is as follows:
 
@@ -40,37 +40,47 @@ This project uses:
 
 * Java 17
 * Maven
-* Spring Boot 3.0.5 framework
-* In memory H2 database
+* Spring Boot 3 framework
+* In memory H2 database for tests
+* Postgre SQL 
+* Flyway 
+* Docker
 * Embedded Apache Tomcat is replaced by JBoss Undertow (no real reason to be honest)
 * SpringDoc OpenAPI UI
 * Hibernate
 
 ### Make sure to have installed
 
-[Git](https://git-scm.com/downloads)
+* [Git](https://git-scm.com/downloads)
 
-[JDK 17 or later](https://adoptium.net)
+* [JDK 17 or later](https://adoptium.net)
 
-[Maven 3.8.8 or later](https://maven.apache.org/download.cgi)
+* [Maven 3.8.8 or later](https://maven.apache.org/download.cgi)
+
+* [Docker](https://www.docker.com/)
 
 ### DB Structure
 
-This project uses simple in memory H2 database with initial SQL script for schema creation, 
-data is removed from DB on each application startup for simplicity.
+Flyway is used for automatic DB migration on application start.
 
-[SQL Script used for table cration](src/main/resources/schema.sql)
+* [Flyway DB Migration scripts](src/main/resources/db/migration)
 
 ### Build & Test:
 
 ```
 mvn clean install
 ```
+Tests run in "test" profile and use in memory H2 db.
+This project uses simple in memory H2 database with initial SQL script for schema creation for tests
 
 ### How to start:
-
+Start dependencies in docker (this will start PostgreSQL container required to run this application, alternatively you can use your already running instance / container, just make sure to change application-dev.yml, app will create it's own schema)
 ```
-java -jar user-posts-management-service\target\user-posts-management-service-0.0.1-SNAPSHOT.jar
+docker-compose up -d
+```
+start application in dev profile
+```
+java -jar -Dspring.profiles.active=dev user-posts-management-service\target\user-posts-management-service-0.0.1-SNAPSHOT.jar
 ```
 
 ### Swagger UI:

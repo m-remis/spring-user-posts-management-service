@@ -3,16 +3,6 @@ server:
     context-path: /api/user-posts-service
   port: 8080
 
-spring:
-  h2:
-    console:
-      enabled: true
-  datasource:
-    url: jdbc:h2:mem:mydb
-    username: sa
-    password: password
-    driverClassName: org.h2.Driver
-
 application:
   name: User posts management service
   desc: Demo app for basic spring boot application
@@ -23,3 +13,13 @@ developer:
   info:
     name: Michal Remis
     linked-in: https://www.linkedin.com/in/michal-remi%C5%A1-1b4785178/
+
+spring:
+  flyway:
+    enabled: true
+    default-schema: user_posts_management
+    schemas: user_posts_management
+  jpa:
+    properties:
+      hibernate:
+        default_schema: user_posts_management
