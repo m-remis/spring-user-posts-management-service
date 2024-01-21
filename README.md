@@ -6,48 +6,92 @@
 
 All functional requirements are covered by unit tests.
 
-Functional requirements:
+### Functional requirements:
 
-- Add post 
-    - need to validate userId using external API
-- Post view
-    - based on id or userId
-    - if the post is not found in the system, it needs to be searched using an external API and saved (valid only for
-      searching using the post id)
-- Post removal
-- Editing the post 
-  - ability to change the title and body
+#### Add post 
+  - need to validate userId using external API
 
+#### Post view (based on id or userId)
+  - if the post is not found in the system, it needs to be searched using an external API and saved (valid only for
+    searching using the post id)
 
-External API can be found here: 
+#### Post removal
+
+#### Editing the post
+ - ability to change the title and body
+
+### External API can be found here
 
 [Json Placeholder](https://jsonplaceholder.typicode.com/)
 
-Apis used:
+#### Apis used:
 
 [Json Placeholder posts API](https://jsonplaceholder.typicode.com/posts)
 
 [Json Placeholder users API](https://jsonplaceholder.typicode.com/users)
 
-The format of the post is as follows:
+### The format of the post is as follows:
 
-- id: integer
-- userId: integer
-- title: string
-- body: string
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Typer</th>
+  </tr>
+  <tr>
+    <td>id</td>
+    <td>Integer</td>
+  </tr>
+  <tr>
+    <td>userId</td>
+    <td>Integer</td>
+  </tr>
+  <tr>
+    <td>title</td>
+    <td>String</td>
+  </tr>
+  <tr>
+    <td>body</td>
+    <td>String</td>
+  </tr>
+</table>
 
-This project uses:
+### This project uses
 
-* Java 17
-* Maven
-* Spring Boot 3 framework
-* In memory H2 database for tests
-* Postgre SQL 
-* Flyway 
-* Docker
-* Embedded Apache Tomcat is replaced by JBoss Undertow (no real reason to be honest)
-* SpringDoc OpenAPI UI
-* Hibernate
+<table>
+  <tr>
+    <th>Tech stack</th>
+  </tr>
+  <tr>
+    <td>Java 17</td>
+  </tr>
+  <tr>
+    <td>Maven</td>
+  </tr>
+  <tr>
+    <td>Spring Boot 3</td>
+  </tr>
+  <tr>
+    <td>H2 (tests)</td>
+  </tr>
+  <tr>
+    <td>Postgres SQL</td>
+  </tr>
+  <tr>
+    <td>Flyway</td>
+  </tr>
+  <tr>
+    <td>Docker</td>
+  </tr>
+  <tr>
+    <td>Tomcat replaced by JBoss Undertow (no reason)</td>
+  </tr>
+  <tr>
+    <td>SpringDoc OpenAPI UI (Swagger UI)</td>
+  </tr>
+  <tr>
+    <td>Hibernate</td>
+  </tr>
+</table>
 
 ### Make sure to have installed
 
@@ -70,24 +114,30 @@ Flyway is used for automatic DB migration on application start.
 ```
 mvn clean install
 ```
-Tests run in "test" profile and use in memory H2 db.
-This project uses simple in memory H2 database with initial SQL script for schema creation for tests
+
+Tests run in "test" profile and use in memory H2 db together with flyway
 
 ### How to start:
-Start dependencies in docker (this will start PostgreSQL container required to run this application, alternatively you can use your already running instance / container, just make sure to change application-dev.yml, app will create it's own schema)
+
+Start dependencies in docker (this will start PostgreSQL container required to run this application, alternatively you
+can use your already running instance / container, just make sure to change application-dev.yml, app will create it's
+own schema)
+
 ```
 docker-compose up -d
 ```
-start application in dev profile
+
+Start application in dev profile
+
 ```
 java -jar -Dspring.profiles.active=dev user-posts-management-service\target\user-posts-management-service-0.0.1-SNAPSHOT.jar
 ```
 
 ### Swagger UI:
 
-This project uses OpenAPI 3.0.3 for documentation
+This project uses OpenAPI for documentation
 
-Swagger UI can be found under:
+Swagger UI can be found under
 
 ```
 {server-url}/api/user-posts-service/swagger-ui/index.html
@@ -99,7 +149,7 @@ Swagger UI can be found under:
 
 ### YAML API Specification:
 
-specification can be downloaded under:
+Specification can be downloaded under
 
 ```
 {server-url}/api/user-posts-service/v3/api-docs.yaml
