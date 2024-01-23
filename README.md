@@ -5,6 +5,7 @@
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL%20-blue)
 ![Docker](https://img.shields.io/badge/Docker%20-aqua)
 ![Flyway](https://img.shields.io/badge/Flyway%20-red)
+![Caffeine Cache](https://img.shields.io/badge/Caffeine%20Cache-brown)
 
 ### User Posts Management Service
 
@@ -100,7 +101,10 @@ All functional requirements are covered by unit tests.
     <td>Flyway</td>
   </tr>
   <tr>
-    <td>Caffeine cache</td>
+    <td>Caffeine Cache</td>
+  </tr>
+  <tr>
+    <td>Spring Cache</td>
   </tr>
   <tr>
     <td>Docker</td>
