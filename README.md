@@ -38,6 +38,8 @@ All functional requirements are covered by unit tests.
     </tr>
 </table>
 
+#### All responses from external API need to be cached in system for 60 seconds
+
 #### External API used for integration can be found here
 
 [Json Placeholder APIs](https://jsonplaceholder.typicode.com/)
@@ -96,6 +98,9 @@ All functional requirements are covered by unit tests.
   </tr>
   <tr>
     <td>Flyway</td>
+  </tr>
+  <tr>
+    <td>Caffeine cache</td>
   </tr>
   <tr>
     <td>Docker</td>

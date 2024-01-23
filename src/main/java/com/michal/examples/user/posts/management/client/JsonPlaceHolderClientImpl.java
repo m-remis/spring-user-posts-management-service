@@ -3,6 +3,7 @@ package com.michal.examples.user.posts.management.client;
 import com.michal.examples.user.posts.management.dto.response.JsonPlaceHolderPostResponseDto;
 import com.michal.examples.user.posts.management.dto.response.JsonPlaceHolderUserResponseDto;
 import com.michal.examples.user.posts.management.exception.ClientIntegrationException;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
@@ -11,6 +12,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 
+import static com.michal.examples.user.posts.management.config.CacheConfig.FIND_POST_BY_ID_CACHE_NAME;
+import static com.michal.examples.user.posts.management.config.CacheConfig.FIND_USER_BY_ID_CACHE_NAME;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 
 /**
@@ -31,6 +34,7 @@ public class JsonPlaceHolderClientImpl implements JsonPlaceHolderClient {
     }
 
     @Override
+    @Cacheable(value = FIND_USER_BY_ID_CACHE_NAME, key="{#userId}")
     public List<JsonPlaceHolderUserResponseDto> findUserById(String baseUrl, Integer userId) {
         try {
             return restClient.get()
@@ -45,6 +49,7 @@ public class JsonPlaceHolderClientImpl implements JsonPlaceHolderClient {
     }
 
     @Override
+    @Cacheable(value = FIND_POST_BY_ID_CACHE_NAME, key="{#postId}")
     public List<JsonPlaceHolderPostResponseDto> findPostById(String baseUrl, Integer postId) {
         try {
             return restClient.get()

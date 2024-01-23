@@ -23,3 +23,6 @@ spring:
     properties:
       hibernate:
         default_schema: user_posts_management
+  cache:
+    ttl:
+      default: 60s

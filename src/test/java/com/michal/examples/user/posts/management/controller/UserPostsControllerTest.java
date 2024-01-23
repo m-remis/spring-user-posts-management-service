@@ -11,6 +11,7 @@ import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.cache.CacheManager;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
@@ -19,6 +20,10 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.List;
+import java.util.Objects;
+
+import static com.michal.examples.user.posts.management.config.CacheConfig.FIND_POST_BY_ID_CACHE_NAME;
+import static com.michal.examples.user.posts.management.config.CacheConfig.FIND_USER_BY_ID_CACHE_NAME;
 
 /**
  * @author Michal Remis
@@ -35,6 +40,14 @@ class UserPostsControllerTest {
     private ObjectMapper objectMapper;
     @Autowired
     private UserPostsRepository userPostsRepository;
+    @Autowired
+    private CacheManager cacheManager;
+
+    @BeforeEach
+    void setup() {
+        Objects.requireNonNull(cacheManager.getCache(FIND_USER_BY_ID_CACHE_NAME)).clear();
+        Objects.requireNonNull(cacheManager.getCache(FIND_POST_BY_ID_CACHE_NAME)).clear();
+    }
 
     @AfterEach
     void cleanUp() {
