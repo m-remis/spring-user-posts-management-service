@@ -25,6 +25,9 @@ import java.util.Objects;
 import static com.michal.examples.user.posts.management.config.CacheConfig.FIND_POST_BY_ID_CACHE_NAME;
 import static com.michal.examples.user.posts.management.config.CacheConfig.FIND_USER_BY_ID_CACHE_NAME;
 
+import static com.michal.examples.user.posts.management.controller.UserPostsController.CONTROLLER_PREFIX;
+import static com.michal.examples.user.posts.management.controller.UserPostsController.GET_FOR_USER;
+
 /**
  * @author Michal Remis
  */
@@ -62,12 +65,11 @@ class UserPostsControllerTest {
         final var existingUserId = 1;
 
         String contentAsString = mockMvc
-                .perform(
-                        MockMvcRequestBuilders
-                                .post(UserPostsController.CONTROLLER_PREFIX)
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(objectMapper.writeValueAsString(request))
-                                .queryParam("userId", String.valueOf(existingUserId)))
+                .perform(MockMvcRequestBuilders
+                        .post(CONTROLLER_PREFIX)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request))
+                        .queryParam("userId", String.valueOf(existingUserId)))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn()
@@ -89,12 +91,11 @@ class UserPostsControllerTest {
         final var request = TestDataFactory.buildCreateUserPostRequestDto();
         final var madeUpUser = 999;
 
-        mockMvc.perform(
-                        MockMvcRequestBuilders
-                                .post(UserPostsController.CONTROLLER_PREFIX)
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(objectMapper.writeValueAsString(request))
-                                .queryParam("userId", String.valueOf(madeUpUser))
+        mockMvc.perform(MockMvcRequestBuilders
+                        .post(CONTROLLER_PREFIX)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request))
+                        .queryParam("userId", String.valueOf(madeUpUser))
                 )
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
@@ -106,11 +107,10 @@ class UserPostsControllerTest {
 
         final var request = TestDataFactory.buildCreateUserPostRequestDtoNullTitle();
 
-        mockMvc.perform(
-                        MockMvcRequestBuilders
-                                .post(UserPostsController.CONTROLLER_PREFIX)
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(objectMapper.writeValueAsString(request)))
+        mockMvc.perform(MockMvcRequestBuilders
+                        .post(CONTROLLER_PREFIX)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isBadRequest());
     }
@@ -121,11 +121,10 @@ class UserPostsControllerTest {
 
         final var request = TestDataFactory.buildCreateUserPostRequestDtoEmptyTitle();
 
-        mockMvc.perform(
-                        MockMvcRequestBuilders
-                                .post(UserPostsController.CONTROLLER_PREFIX)
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(objectMapper.writeValueAsString(request)))
+        mockMvc.perform(MockMvcRequestBuilders
+                        .post(CONTROLLER_PREFIX)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isBadRequest());
     }
@@ -136,11 +135,10 @@ class UserPostsControllerTest {
 
         final var request = TestDataFactory.buildCreateUserPostRequestDtoNullBody();
 
-        mockMvc.perform(
-                        MockMvcRequestBuilders
-                                .post(UserPostsController.CONTROLLER_PREFIX)
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(objectMapper.writeValueAsString(request)))
+        mockMvc.perform(MockMvcRequestBuilders
+                        .post(CONTROLLER_PREFIX)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isBadRequest());
     }
@@ -151,11 +149,10 @@ class UserPostsControllerTest {
 
         final var request = TestDataFactory.buildCreateUserPostRequestDtoEmptyBody();
 
-        mockMvc.perform(
-                        MockMvcRequestBuilders
-                                .post(UserPostsController.CONTROLLER_PREFIX)
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(objectMapper.writeValueAsString(request)))
+        mockMvc.perform(MockMvcRequestBuilders
+                        .post(CONTROLLER_PREFIX)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isBadRequest());
     }
@@ -167,12 +164,11 @@ class UserPostsControllerTest {
         final var request = TestDataFactory.buildUpdateUserPostRequestDtoEmptyTitle();
         final var irrelevantId = 1;
 
-        mockMvc.perform(
-                        MockMvcRequestBuilders
-                                .patch(UserPostsController.CONTROLLER_PREFIX)
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(objectMapper.writeValueAsString(request))
-                                .queryParam("id", String.valueOf(irrelevantId)))
+        mockMvc.perform(MockMvcRequestBuilders
+                        .patch(CONTROLLER_PREFIX)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request))
+                        .queryParam("id", String.valueOf(irrelevantId)))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isBadRequest());
     }
@@ -184,12 +180,11 @@ class UserPostsControllerTest {
         final var request = TestDataFactory.buildUpdateUserPostRequestDtoEmptyBody();
         final var irrelevantId = 1;
 
-        mockMvc.perform(
-                        MockMvcRequestBuilders
-                                .patch(UserPostsController.CONTROLLER_PREFIX)
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(objectMapper.writeValueAsString(request))
-                                .queryParam("id", String.valueOf(irrelevantId)))
+        mockMvc.perform(MockMvcRequestBuilders
+                        .patch(CONTROLLER_PREFIX)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request))
+                        .queryParam("id", String.valueOf(irrelevantId)))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isBadRequest());
     }
@@ -203,17 +198,16 @@ class UserPostsControllerTest {
         final var createdEntity = TestDataFactory.buildUserPostEntity(givenPostId, 1);
         TestFixtures.createUserPostEntity(userPostsRepository, createdEntity);
 
-        String contentAsString = mockMvc
-                .perform(
-                        MockMvcRequestBuilders
-                                .get(UserPostsController.CONTROLLER_PREFIX)
+        String contentAsString =
+                mockMvc.perform(MockMvcRequestBuilders
+                                .get(CONTROLLER_PREFIX)
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .queryParam("id", String.valueOf(givenPostId)))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andReturn()
-                .getResponse()
-                .getContentAsString();
+                        .andDo(MockMvcResultHandlers.print())
+                        .andExpect(MockMvcResultMatchers.status().isOk())
+                        .andReturn()
+                        .getResponse()
+                        .getContentAsString();
 
         ServerResponse<UserPostResponseDto> response = objectMapper.readValue(contentAsString, new TypeReference<>() {
         });
@@ -233,18 +227,17 @@ class UserPostsControllerTest {
         final var request = TestDataFactory.buildUpdateUserPostRequestDto();
         TestFixtures.createUserPostEntity(userPostsRepository, createdEntity);
 
-        String contentAsString = mockMvc
-                .perform(
-                        MockMvcRequestBuilders
-                                .patch(UserPostsController.CONTROLLER_PREFIX)
+        String contentAsString =
+                mockMvc.perform(MockMvcRequestBuilders
+                                .patch(CONTROLLER_PREFIX)
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(objectMapper.writeValueAsString(request))
                                 .queryParam("id", String.valueOf(givenPostId)))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andReturn()
-                .getResponse()
-                .getContentAsString();
+                        .andDo(MockMvcResultHandlers.print())
+                        .andExpect(MockMvcResultMatchers.status().isOk())
+                        .andReturn()
+                        .getResponse()
+                        .getContentAsString();
 
         ServerResponse<UserPostResponseDto> response = objectMapper.readValue(contentAsString, new TypeReference<>() {
         });
@@ -263,17 +256,16 @@ class UserPostsControllerTest {
 
         final var givenPostId = 1;
 
-        String contentAsString = mockMvc
-                .perform(
-                        MockMvcRequestBuilders
-                                .get(UserPostsController.CONTROLLER_PREFIX)
+        String contentAsString =
+                mockMvc.perform(MockMvcRequestBuilders
+                                .get(CONTROLLER_PREFIX)
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .queryParam("id", String.valueOf(givenPostId)))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andReturn()
-                .getResponse()
-                .getContentAsString();
+                        .andDo(MockMvcResultHandlers.print())
+                        .andExpect(MockMvcResultMatchers.status().isOk())
+                        .andReturn()
+                        .getResponse()
+                        .getContentAsString();
 
         ServerResponse<UserPostResponseDto> response = objectMapper.readValue(contentAsString, new TypeReference<>() {
         });
@@ -296,17 +288,16 @@ class UserPostsControllerTest {
         final var createdEntity = TestDataFactory.buildUserPostEntity(givenPostId, givenUserId);
         TestFixtures.createUserPostEntity(userPostsRepository, createdEntity);
 
-        String contentAsString = mockMvc
-                .perform(
-                        MockMvcRequestBuilders
-                                .get(UserPostsController.GET_FOR_USER)
+        String contentAsString =
+                mockMvc.perform(MockMvcRequestBuilders
+                                .get(CONTROLLER_PREFIX.concat(GET_FOR_USER))
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .queryParam("userId", String.valueOf(givenUserId)))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andReturn()
-                .getResponse()
-                .getContentAsString();
+                        .andDo(MockMvcResultHandlers.print())
+                        .andExpect(MockMvcResultMatchers.status().isOk())
+                        .andReturn()
+                        .getResponse()
+                        .getContentAsString();
 
         ServerResponse<List<UserPostResponseDto>> response = objectMapper.readValue(contentAsString, new TypeReference<>() {
         });
@@ -323,17 +314,16 @@ class UserPostsControllerTest {
 
         final var notPresentUserId = 999;
 
-        String contentAsString = mockMvc
-                .perform(
-                        MockMvcRequestBuilders
-                                .get(UserPostsController.GET_FOR_USER)
+        String contentAsString =
+                mockMvc.perform(MockMvcRequestBuilders
+                                .get(CONTROLLER_PREFIX.concat(GET_FOR_USER))
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .queryParam("userId", String.valueOf(notPresentUserId)))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andReturn()
-                .getResponse()
-                .getContentAsString();
+                        .andDo(MockMvcResultHandlers.print())
+                        .andExpect(MockMvcResultMatchers.status().isOk())
+                        .andReturn()
+                        .getResponse()
+                        .getContentAsString();
 
         ServerResponse<List<UserPostResponseDto>> response = objectMapper.readValue(contentAsString, new TypeReference<>() {
         });
@@ -349,10 +339,9 @@ class UserPostsControllerTest {
         final var createdEntity = TestDataFactory.buildUserPostEntity(givenPostId, 1);
         TestFixtures.createUserPostEntity(userPostsRepository, createdEntity);
 
-        mockMvc.perform(
-                        MockMvcRequestBuilders
-                                .delete(UserPostsController.CONTROLLER_PREFIX)
-                                .queryParam("id", String.valueOf(givenPostId)))
+        mockMvc.perform(MockMvcRequestBuilders
+                        .delete(CONTROLLER_PREFIX)
+                        .queryParam("id", String.valueOf(givenPostId)))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk());
 
@@ -367,10 +356,9 @@ class UserPostsControllerTest {
 
         final var irrelevantId = 17;
 
-        mockMvc.perform(
-                        MockMvcRequestBuilders
-                                .delete(UserPostsController.CONTROLLER_PREFIX)
-                                .queryParam("id", String.valueOf(irrelevantId)))
+        mockMvc.perform(MockMvcRequestBuilders
+                        .delete(CONTROLLER_PREFIX)
+                        .queryParam("id", String.valueOf(irrelevantId)))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
     }
