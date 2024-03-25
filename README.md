@@ -133,6 +133,9 @@ All functional requirements are covered by unit tests.
 
 * [Docker](https://www.docker.com/)
 
+
+[Bash scripts for Maven, OpenJdk17 17 and Git](scripts)
+
 ### DB Structure
 
 Flyway is used for automatic DB migration on application start.
